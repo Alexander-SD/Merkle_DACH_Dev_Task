@@ -96,6 +96,7 @@ const SearchPage = () => {
                             </Select>
                         </FormControl>
                     </Box>
+                    
                 </div> */}
             </div>
             <div className='logout-button'>
