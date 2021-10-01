@@ -6,9 +6,9 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const axios = require("axios");
-const redis = require("redis");
 const passport = require("passport");
 const User = require("./user");
+const getOrSetCache = require("./getOrSetCache");
 
 const app = express();
 
@@ -90,21 +90,24 @@ app.get("/logout", (req, res) => {
 // ----------------------OMDb-----------------------------
 
 
-app.post("/api", async (req, res) => {
+app.post("/apiomdb", async (req, res) => {
     if (req.isAuthenticated()) {
         const textInput = req.body.textInput;
-        const typeInput = req.body.typeInput;
-        const yearInput = req.body.yearInput;
-        const omdbData = await axios({
-            method: 'GET',
-            url: `http://www.omdbapi.com/?s=${textInput}&page=1&r=json&apikey=${process.env.OMDB_API_KEY}`
-        })
-        console.log(omdbData.data);
-        res.send(omdbData.data);
+        // const typeInput = req.body.typeInput;
+        // const yearInput = req.body.yearInput;
+        const omdbData = await getOrSetCache(`apiomdb(query:${textInput})`, async () => {
+            const { data } = await axios({
+                method: 'GET',
+                url: `http://www.omdbapi.com/?s=${textInput}&page=1&r=json&apikey=${process.env.OMDB_API_KEY}`
+            })
+            return data;
+        });
+        res.json(omdbData);
     } else {
         res.send(`User's Authentication = ${req.isAuthenticated()}`);
     }
 });
+
 
 
 // ---------------------Listen Ports----------------------

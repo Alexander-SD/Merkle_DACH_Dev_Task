@@ -34,7 +34,7 @@ const SearchPage = () => {
             method: 'POST',
             data: input,
             withCredentials: true,
-            url: 'http://localhost:5000/api'
+            url: 'http://localhost:5000/apiomdb'
         })
             .then(res => {
                 setResponseData(res.data)
@@ -56,7 +56,7 @@ const SearchPage = () => {
             .then(res => {
                 console.log(res)
                 if (res.data === false) {
-                    history.push('/authentication');
+                    history.push('/');
                 }
             })
             .catch(err => console.log(err));
@@ -116,7 +116,6 @@ const SearchPage = () => {
                                 <Paper sx={{
                                     height: 240,
                                     width: 200,
-                                    // backgroundImage: value.Poster,
                                     backgroundColor: '#fafafa',
                                     boxSizing: 'border-box',
                                     display: 'flex',

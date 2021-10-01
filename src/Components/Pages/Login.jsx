@@ -41,6 +41,7 @@ const Login = () => {
     return (
         <div className='form-wrapper'>
             <h2>Login</h2>
+            {/* I'm gonna to extrax this form to a separate component */}
             <form onSubmit={submitHandler} className='register-form'>
                 <TextField
                     style={{ marginBottom: '16px' }}
