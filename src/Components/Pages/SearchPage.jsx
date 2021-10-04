@@ -109,6 +109,9 @@ const SearchPage = () => {
                     Logout
                 </Button>
             </div>
+
+            {/* I gonna to extract this code for response into separate component */}
+
             <Grid sx={{ flexGrow: 1 }} container spacing={2}>
                 <Grid item xs={12}>
                     <Grid container justifyContent="center" spacing={2}>
